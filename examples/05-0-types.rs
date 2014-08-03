@@ -1,0 +1,12 @@
+fn main() {
+    // Type annotated variable
+    // let a_float: f64 = 1.0;
+    let _a_float: f64 = 1.0;
+
+    // This variable is an `int`
+    // let mut an_integer = 5i;
+    let mut _an_integer = 5i;
+
+    // Error! The type of a variable can't be changed
+    // an_integer = true;
+}
