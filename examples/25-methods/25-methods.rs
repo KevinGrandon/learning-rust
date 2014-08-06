@@ -18,12 +18,13 @@ impl Point {
     }
 }
 
-struct Rectangle {
+struct Rectangle<'a> {
     p1: Point,
     p2: Point,
+    name: &'a mut str,
 }
 
-impl Rectangle {
+impl<'a> Rectangle<'a> {
     // This is an instance method
     // `&self` is sugar for `self: &Self`, where `Self` is the type of the
     // caller object. In this case `Self` = `Rectangle`
@@ -53,6 +54,10 @@ impl Rectangle {
         self.p1.y += y;
         self.p2.y += y;
     }
+
+    fn rename(&mut self, newName: &'a str) {
+        self.name = newName;
+    }
 }
 
 // `Pair` owns resources: two heap allocated integers
@@ -76,6 +81,7 @@ fn main() {
         // Static methods are called using double colons
         p1: Point::origin(),
         p2: Point::new(3.0, 4.0),
+        name: "My First Rect"
     };
 
     // Instance method are called using the dot operator
@@ -83,10 +89,12 @@ fn main() {
     // `rectangle.perimeter()` === `perimeter(&rectangle)`
     println!("Rectangle perimeter: {}", rectangle.perimeter());
     println!("Rectangle area: {}", rectangle.area());
+    println!("Rectangle name: {}", rectangle.name);
 
     let mut square = Rectangle {
         p1: Point::origin(),
         p2: Point::new(1.0, 1.0),
+        name: "My Other Rect Rect"
     };
 
     // Error! `rectangle` is immutable, but this method requires a mutable
@@ -97,11 +105,15 @@ fn main() {
     // Ok, mutable object can call mutable methods
     square.move(1.0, 1.0);
 
+    println!("Square name: {}", square.name);
+    square.rename("Omg new name.");
+    println!("Square updated name: {}", square.name);
+
     let pair = Pair(box 1, box 2);
 
     pair.destroy();
 
     // Error! Previous `destroy` call "consumed" `pair`
-    //pair.destroy();
+    // pair.destroy();
     // TODO ^ Try uncommenting this line
 }
