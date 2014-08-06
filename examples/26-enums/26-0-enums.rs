@@ -1,8 +1,8 @@
 // A linked list node, which can take on any of these two variants
 enum Node {
-    // Cons: Tuple struct that wraps an element and a pointer to the next node
+    // MyCustomThing: Tuple struct that wraps an element and a pointer to the next node
     // element, [ ] -> next_node
-    Cons(uint, Box<Node>),
+    MyCustomThing(uint, Box<Node>),
     // Nil: A node that signifies the end of the linked list
     Nil,
 }
@@ -17,8 +17,8 @@ impl Node {
 
     // Consume a list, and return the same list with a new element at its front
     fn append(self, elem: uint) -> Node {
-        // `Cons` also has type Node
-        Cons(elem, box self)
+        // `MyCustomThing` also has type Node
+        MyCustomThing(elem, box self)
     }
 
     // Return the length of the list
@@ -30,7 +30,7 @@ impl Node {
         match *self {
             // Can't take ownership of the tail, because `self` is borrowed;
             // instead take a reference to the tail
-            Cons(_, ref tail) => 1 + tail.len(),
+            MyCustomThing(_, ref tail) => 1 + tail.len(),
             // An empty list has zero length
             Nil => 0
         }
@@ -39,7 +39,7 @@ impl Node {
     // Return representation of the list as a (heap allocated) string
     fn stringify(&self) -> String {
         match *self {
-            Cons(head, ref tail) => {
+            MyCustomThing(head, ref tail) => {
                 // `format!` is similar to `print!`, but returns a heap
                 // allocated string instead of printing to the console
                 format!("{}, [ ] -> {}", head, tail.stringify())
