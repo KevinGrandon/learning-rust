@@ -26,7 +26,7 @@ fn fibonacci() -> Fibonacci {
 
 fn main() {
     // Iterator that generates: 0, 1 and 2
-    let mut sequence = range(0u, 3);
+    let mut sequence = range(1u, 3);
 
     println!("Four consecutive `next` calls on range(0, 3)")
     println!("> {}", sequence.next());
@@ -44,14 +44,14 @@ fn main() {
     // The 'take(n)' method will reduce an iterator to its first 'n' terms,
     // which is pretty useful for infinite value generators
     println!("The first four terms of the Fibonacci sequence are: ");
-    for i in fibonacci().take(4) {
+    for i in fibonacci().take(10) {
         println!("> {}", i);
     }
 
     // The 'skip(n)' method will shorten an iterator by dropping its first 'n'
     // terms
     println!("The next four terms of the Fibonacci sequence are: ");
-    for i in fibonacci().skip(4).take(4) {
+    for i in fibonacci().skip(4).take(10) {
         println!("> {}", i);
     }
 
